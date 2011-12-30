@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 import java.net.URL;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -23,55 +25,68 @@ import org.xml.sax.SAXParseException;
 import com.djt.app.feed.handlers.TwitterFeedHandler;
 import com.djt.app.to.DataItem;
 
-public class FeedServlet extends HttpServlet {
+public class FeedServlet extends GenericServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
 
+				PrintWriter pw = resp.getWriter();
+				printHTMLStartTags(pw);
 				try {
+
+					resp.setHeader("Cache-Control", "no-cache");
 					SAXParserFactory factory = SAXParserFactory.newInstance();
 					SAXParser parser = factory.newSAXParser();
-					String page = req.getParameter("page");
-					if (page == null || page.length() > 0) {
-						page = "http://search.twitter.com/search.atom?q=airport+delay";
+					String urlS = req.getParameter("url");
+					String page = "http://search.twitter.com/search.atom?q=airport+delay";
+					String query = req.getParameter("query");
+					if (urlS !=null && urlS.length() > 0) {
+						page = URLDecoder.decode(urlS);
 					}
+					if (query != null && query.length() > 0) {
+						query= query.replace(" ","+");
+						page = "http://search.twitter.com/search.atom?q="+query;
+					}
+					System.out.println("page="+page);
+
 					URL url = new URL(page);
 					InputStream is = url.openConnection().getInputStream();
-		//			InputStream is = new FileInputStream(new File("C:\\Users\\Dan\\Documents\\twitter04OCT11-1740.xml"));
-					int available = is.available();
 
-		/*			StringBuffer buff = new StringBuffer(available);
-					byte[] b = new byte[128];
-					int read = 0;
-					while ((read = is.read(b))>0) {
-						buff.append(new String(b));
-					}
-					System.out.println(buff);
-		*/
 					TwitterFeedHandler h = new TwitterFeedHandler();
 					parser.parse(is, h);
-					PrintWriter pw = resp.getWriter();
-					pw.print("<HTML><HEAD><TITLE>Twitter feed example</TITLE><HEAD><BODY><TABLE><TR><TD>");
+					pw.print("<TABLE><TR><TD>");
 					for(DataItem d: h.getBuild().getEntries()){
 						pw.print(d.asHtml());
 					}
-					pw.print("<a href=\"?page=");
-					pw.print(h.getBuild().getNextPage());
+					pw.print("<a href=\"twitter?url=");
+					pw.print(URLEncoder.encode(h.getBuild().getNextPage()));
 					pw.print("\">Next page</a>");
-					pw.print("</TD></TR></BODY></HTML>");
+					pw.print("</TD></TR></TABLE>");
 				} catch (SAXParseException e) {
-					e.printStackTrace();
+					printError(e, pw);
 				} catch (IOException ioe) {
-					ioe.printStackTrace();
+					printError(ioe, pw);
 				} catch (SAXException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					printError(e, pw);
 				} catch (ParserConfigurationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-		}
+					printError(e, pw);
+				} finally {
+					printHTMLEndTags(pw);
+				}
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+				doGet(req,resp);
+	}
+
+	@Override
+	public String getPageTitle() {
+		return "Twitter Feed Example";
+	}
+
 
 }

@@ -8,7 +8,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.*;
 
 /**
- * Hello world!
+ * App class to set up the Jetty servlets / contexts
  *
  */
 public class App
@@ -18,7 +18,8 @@ public class App
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
-        context.addServlet(new ServletHolder(new FeedServlet()),"/*");
+        context.addServlet(new ServletHolder(new HomeServlet()),"/*");
+        context.addServlet(new ServletHolder(new FeedServlet()),"/twitter/*");
         server.start();
         server.join();
     }
