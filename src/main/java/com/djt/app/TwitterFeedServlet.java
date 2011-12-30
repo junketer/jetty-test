@@ -43,7 +43,7 @@ public class TwitterFeedServlet extends GenericServlet {
 					String page = "http://search.twitter.com/search.atom?q=airport+delay";
 					String query = req.getParameter("query");
 					if (urlS !=null && urlS.length() > 0) {
-						page = URLDecoder.decode(urlS);
+						page = URLDecoder.decode(urlS).replace(" ", "+");
 					}
 					if (query != null && query.length() > 0) {
 						query= query.replace(" ","+");
