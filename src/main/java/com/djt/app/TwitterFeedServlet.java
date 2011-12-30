@@ -33,7 +33,7 @@ public class TwitterFeedServlet extends GenericServlet {
 
 
 				PrintWriter pw = resp.getWriter();
-				printHTMLStartTags(pw);
+				//printHTMLStartTags(pw);
 				try {
 
 					resp.setHeader("Cache-Control", "no-cache");
@@ -64,9 +64,9 @@ public class TwitterFeedServlet extends GenericServlet {
 						pw.print(d.asHtml());
 					}
 					if (h.getBuild().getNextPage() != null) {
-						pw.print("<a href=\"twitter?url=");
+						pw.print("<a href=\"#\" onclick=\"javascript:nextPage('");
 						pw.print(URLEncoder.encode(h.getBuild().getNextPage()));
-						pw.print("\">Next page</a>");
+						pw.print("')\">Next page</a>");
 					}
 					pw.print("</TD></TR></TABLE>");
 				} catch (SAXParseException e) {
@@ -78,7 +78,7 @@ public class TwitterFeedServlet extends GenericServlet {
 				} catch (ParserConfigurationException e) {
 					printError(e, pw);
 				} finally {
-					printHTMLEndTags(pw);
+					//printHTMLEndTags(pw);
 				}
     }
 

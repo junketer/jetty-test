@@ -29,7 +29,26 @@ public abstract class GenericServlet extends HttpServlet {
 
 
 	protected void printJavaScript(PrintWriter pw) {
-		pw.print("<script language=\"JavaScript\">function setPage() {var q = document.getElementByName('query')[0].value; document.getElementByName('page').value='http;//search.twitter.com/search.atom?q='+q;}</script>");
+		pw.println("<script language=\"JavaScript\">");
+		pw.println("function setPage() {var q = document.getElementsByName('query')[0].value; ");
+		pw.println(" document.getElementsByName('page')[0].value='http;//search.twitter.com/search.atom?q='+q;} ");
+		pw.println("function callAjax(url) {");
+		//pw.println(" alert(url);");
+		pw.println("var xmlhttp; if (window.XMLHttpRequest) ");
+		pw.println("  {// code for IE7+, Firefox, Chrome, Opera, Safari ");
+		pw.println(" xmlhttp=new XMLHttpRequest(); } else {// code for IE6, IE5 ");
+		pw.println(" xmlhttp=new ActiveXObject(\"Microsoft.XMLHTTP\"); }");
+		pw.println("xmlhttp.open(\"GET\",url,false);");
+		pw.println("xmlhttp.send();");
+		//pw.println("alert(xmlhttp.responseText);");
+		pw.println("document.getElementById(\"searchResults\").innerHTML=xmlhttp.responseText;} ");
+		pw.println("function twitterQuery() {");
+		//pw.println("alert('twitter query'); ");
+		pw.println(" var q= document.getElementsByName('query')[0].value; callAjax('./twitter?query='+q);} ");
+		pw.println("function nextPage(url) {");
+		pw.println(" callAjax('./twitter?url='+url);");
+		pw.println("}");
+		pw.println("</script>");
 
 	}
 

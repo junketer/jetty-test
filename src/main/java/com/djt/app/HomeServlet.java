@@ -25,7 +25,7 @@ public class HomeServlet extends GenericServlet {
 			pw.print("<form action=\"/twitter\" method=\"post\">");
 			pw.print("Twitter search: <input name=\"query\" type=\"text\" onBlur=\"javascript:setPage()\" /><BR/>");
 			pw.print("<input type=\"hidden\" name=\"page\" />");
-			pw.print("<input type=\"submit\" value=\"Search\" />");
+			pw.print("<input type=\"button\" value=\"Search\" onclick=\"javascript:twitterQuery();\" />");
 			pw.print("</form>");
 			pw.print("<div id=\"searchResults\" />");
 		} finally {

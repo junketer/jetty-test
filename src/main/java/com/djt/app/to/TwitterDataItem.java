@@ -64,7 +64,7 @@ public class TwitterDataItem extends AbstractDataItem {
 		b.append("</TD></TR><TR><TD>");
 		b.append("</TD><TD><a href=\"");
 		b.append(authorProfileUrl);
-		b.append("\">");
+		b.append("\" target=\"_blank\">");
 		b.append(authorName);
 		b.append("</a></TD></TR></TABLE>");
 		return b.toString();
