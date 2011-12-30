@@ -19,7 +19,7 @@ public class App
         context.setContextPath("/");
         server.setHandler(context);
         context.addServlet(new ServletHolder(new HomeServlet()),"/*");
-        context.addServlet(new ServletHolder(new FeedServlet()),"/twitter/*");
+        context.addServlet(new ServletHolder(new TwitterFeedServlet()),"/twitter/*");
         server.start();
         server.join();
     }

@@ -67,7 +67,7 @@ public class AppTest
 			TwitterFeedHandler h = new TwitterFeedHandler();
 			parser.parse(is, h);
 			for(DataItem d: h.getBuild().getEntries()){
-				System.out.println(d);
+				System.out.println(d.asHtml());
 			}
 			System.out.println(h.getBuild().getNextPage());
 

@@ -54,4 +54,19 @@ public class TwitterDataItem extends AbstractDataItem {
 		return representation;
 	}
 
+	@Override
+	public String asHtml() {
+		StringBuffer b = new StringBuffer();
+		b.append("<TABLE><TR><TD><img src=\"");
+		b.append(authorImageUrl);
+		b.append("\" /></TD><TD class=\"data\">");
+		b.append(data);
+		b.append("</TD></TR><TR><TD>");
+		b.append("</TD><TD><a href=\"");
+		b.append(authorProfileUrl);
+		b.append("\">");
+		b.append(authorName);
+		b.append("</a></TD></TR></TABLE>");
+		return b.toString();
+	}
 }
