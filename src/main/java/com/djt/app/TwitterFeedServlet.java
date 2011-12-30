@@ -44,14 +44,11 @@ public class TwitterFeedServlet extends GenericServlet {
 					String query = req.getParameter("query");
 					if (urlS !=null && urlS.length() > 0) {
 						page = URLDecoder.decode(urlS).replace(" ", "+");
-					}
-					if (query != null && query.length() > 0) {
+					} else if (query != null && query.length() > 0) {
 						query= query.replace(" ","+");
 						page = "http://search.twitter.com/search.atom?q="+query;
-						pw.print("<H3>Twitter search results for : ");
-						pw.print(query);
-						pw.print("</H3>");
 					}
+					printQueryHeading(pw, query);
 					System.out.println("page="+page);
 
 					URL url = new URL(page);
@@ -95,4 +92,9 @@ public class TwitterFeedServlet extends GenericServlet {
 	}
 
 
+	private void printQueryHeading(PrintWriter pw, String query) {
+		pw.print("<H3>Twitter search results for : ");
+		pw.print(query);
+		pw.print("</H3>");
+	}
 }

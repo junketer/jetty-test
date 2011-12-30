@@ -46,7 +46,8 @@ public abstract class GenericServlet extends HttpServlet {
 		//pw.println("alert('twitter query'); ");
 		pw.println(" var q= document.getElementsByName('query')[0].value; callAjax('./twitter?query='+q);} ");
 		pw.println("function nextPage(url) {");
-		pw.println(" callAjax('./twitter?url='+url);");
+		pw.println(" var q= document.getElementsByName('query')[0].value; ");
+		pw.println(" callAjax('./twitter?url='+url+'&query='+q);");
 		pw.println("}");
 		pw.println("</script>");
 
