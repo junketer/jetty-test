@@ -33,7 +33,11 @@ public class FeedServlet extends HttpServlet {
 				try {
 					SAXParserFactory factory = SAXParserFactory.newInstance();
 					SAXParser parser = factory.newSAXParser();
-					URL url = new URL("http://search.twitter.com/search.atom?q=airport+delay");
+					String page = req.getParameter("page");
+					if (page == null || page.length() > 0) {
+						page = "http://search.twitter.com/search.atom?q=airport+delay";
+					}
+					URL url = new URL(page);
 					InputStream is = url.openConnection().getInputStream();
 		//			InputStream is = new FileInputStream(new File("C:\\Users\\Dan\\Documents\\twitter04OCT11-1740.xml"));
 					int available = is.available();
@@ -49,15 +53,14 @@ public class FeedServlet extends HttpServlet {
 					TwitterFeedHandler h = new TwitterFeedHandler();
 					parser.parse(is, h);
 					PrintWriter pw = resp.getWriter();
-					pw.print("<HTML><HEAD><TITLE>Twitter feed example</TITLE><HEAD><BODY>");
+					pw.print("<HTML><HEAD><TITLE>Twitter feed example</TITLE><HEAD><BODY><TABLE><TR><TD>");
 					for(DataItem d: h.getBuild().getEntries()){
-						pw.print(d);
-						pw.print("<BR/>");
+						pw.print(d.asHtml());
 					}
-					pw.print("<a href=\"");
+					pw.print("<a href=\"?page=");
 					pw.print(h.getBuild().getNextPage());
 					pw.print("\">Next page</a>");
-					pw.print("</BODY></HTML>");
+					pw.print("</TD></TR></BODY></HTML>");
 				} catch (SAXParseException e) {
 					e.printStackTrace();
 				} catch (IOException ioe) {

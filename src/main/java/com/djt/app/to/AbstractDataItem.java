@@ -28,4 +28,12 @@ public class AbstractDataItem implements DataItem {
 		return id;
 	}
 
+	public String asHtml() {
+		StringBuffer b = new StringBuffer();
+		b.append("<TABLE><TR><TD>");
+		b.append(data);
+		b.append("</TD></TR></TABLE>");
+		return b.toString();
+	}
+
 }

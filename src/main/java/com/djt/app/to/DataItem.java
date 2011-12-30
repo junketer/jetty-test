@@ -7,4 +7,5 @@ public interface DataItem extends Serializable {
 	public long getId();
 	public String getDescription();
 	public Serializable getData();
+	public String asHtml();
 }
