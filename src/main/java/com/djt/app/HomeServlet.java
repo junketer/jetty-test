@@ -27,7 +27,7 @@ public class HomeServlet extends GenericServlet {
 			pw.print("<input type=\"hidden\" name=\"page\" />");
 			pw.print("<input type=\"button\" value=\"Search\" onclick=\"javascript:twitterQuery();\" />");
 			pw.print("</form>");
-			pw.print("<div id=\"searchResults\" />");
+			pw.print("<div id=\"searchResults\" class=\"results\" />");
 		} finally {
 			printHTMLEndTags(pw);
 		}

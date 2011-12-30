@@ -59,10 +59,11 @@ public class TwitterFeedServlet extends GenericServlet {
 
 					TwitterFeedHandler h = new TwitterFeedHandler();
 					parser.parse(is, h);
-					pw.print("<TABLE><TR><TD>");
+					pw.print("<TABLE><TR><TD><div id=\"innerResults\" class=\"innerResults\">");
 					for(DataItem d: h.getBuild().getEntries()){
 						pw.print(d.asHtml());
 					}
+					pw.print("</div>");
 					if (h.getBuild().getNextPage() != null) {
 						pw.print("<a href=\"#\" onclick=\"javascript:nextPage('");
 						pw.print(URLEncoder.encode(h.getBuild().getNextPage()));

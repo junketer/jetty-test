@@ -4,7 +4,7 @@
 hr {color:sienna;}
 
 p {margin-left:20px;}
-
+div.results {height: 80px; scrolling:auto; }
 td.data {background-color: #CCFFCC;}
 
 </style>
@@ -39,4 +39,4 @@ function twitterQuery() {
 <input name="query" type="text" onBlur="javascript:setPage()" /><BR/>
 <input type="hidden" name="page" />
 <input type="button" value="Search" onclick="javascript:twitterQuery();" />
-</form><div id="searchResults"></div></BODY></HTML>
+</form><div id="searchResults" class="results"></div></BODY></HTML>
