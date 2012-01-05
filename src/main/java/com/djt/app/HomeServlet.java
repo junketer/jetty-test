@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.*;
 
 public class HomeServlet extends GenericServlet {
@@ -44,6 +45,13 @@ public class HomeServlet extends GenericServlet {
 				while (names.hasMoreElements()) {
 					String s = names.nextElement().toString();
 					System.out.println(s + "="+req.getParameter(s));
+				}
+				String signedReq = req.getParameter("signed_request");
+				if (signedReq != null  && signedReq.length() >0) {
+						String url = "https://www.facebook.com/dialog/oauth?client_id=154418354667612"+
+							"&redirect_uri=https://apps.facebook.com/djt-test/";
+					RequestDispatcher rd = req.getRequestDispatcher(url);
+					rd.forward(req,resp);
 				}
 				doGet(req,resp);
 			}
