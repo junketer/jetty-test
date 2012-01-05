@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -72,4 +71,7 @@ public abstract class GenericServlet extends HttpServlet {
 		pw.print("<PRE>");
 	}
 
+	protected String decode64(String encodedBytes) throws IOException {
+		return new String(MyBase64.decode(encodedBytes));
+	}
 }

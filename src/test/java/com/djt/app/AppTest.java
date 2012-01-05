@@ -121,4 +121,13 @@ public class AppTest
 		}
 
 	}
+
+	public void testEncodeDecode() {
+		String dan = "Dan";
+		String dan64 = MyBase64.encode(dan.getBytes());
+		System.out.println(dan + " encoded: " + dan64);
+		String decoded = new String(MyBase64.decode(dan64));
+		System.out.println(dan64 + " decoded: " + decoded);
+		assertEquals(dan, decoded);
+	}
 }
