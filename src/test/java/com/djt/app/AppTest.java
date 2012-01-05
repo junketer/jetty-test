@@ -22,6 +22,9 @@ import org.xml.sax.SAXParseException;
 import com.djt.app.feed.handlers.RSSFeedHandler;
 import com.djt.app.feed.handlers.TwitterFeedHandler;
 import com.djt.app.to.DataItem;
+
+import org.json.*;
+
 /**
  * Unit test for simple App.
  */
@@ -130,4 +133,22 @@ public class AppTest
 		System.out.println(dan64 + " decoded: " + decoded);
 		assertEquals(dan, decoded);
 	}
+
+	public void testFBRequestDecode() throws JSONException {
+		String signed_request="4QQj8zlP-QZwuXwAexwA-a2XU4A"+
+			"foWbNsMu6bEhWrzY.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjEzMjU4MDQ0MDA"+
+			"sImlzc3VlZF9hdCI6MTMyNTgwMDA0Niwib2F1dGhfdG9rZW4iOiJBQUFDTWNWTXRRRndCQUVSSWRtajJ"+
+			"pOGdobTJXWkFUemlQb2ZPYktWNXBzMHFZWkM5bWY4WkNVWkFEQzFiNXZaQjV5cmtwWkFjUHBWa1ZYbGt"+
+			"Cc1Fqb1hyUzQzbzBsNkJ6YVFUV2FuWkJmcTE2QVpEWkQiLCJ1c2VyIjp7ImNvdW50cnkiOiJnYiIsImx"+
+			"vY2FsZSI6ImVuX0dCIiwiYWdlIjp7Im1pbiI6MjF9fSwidXNlcl9pZCI6IjYxODM0Mjk5NCJ9";
+
+
+		System.out.println(signed_request+ " encoded: " + signed_request);
+		String decoded = new String(MyBase64.decode(signed_request));
+		System.out.println(" decoded: " + decoded);
+		JSONObject jObj = new JSONObject(decoded);
+		System.out.println("user_id: " + jObj.get("user_id"));
+	}
+
+
 }
