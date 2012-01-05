@@ -50,8 +50,10 @@ public class HomeServlet extends GenericServlet {
 				if (signedReq != null  && signedReq.length() >0) {
 					try {
 						String hashBit = signedReq.substring(0,signedReq.indexOf("."));
+						System.out.println("hashBit="+hashBit);
 						String dataBit= signedReq.substring(signedReq.indexOf(".")+1);
-						System.out.println("dataBit="+dataBit);
+						System.out.println("dataBit="+(dataBit==null ? "null":dataBit));
+						System.out.println("signed_request="+signedReq);
 						String unsignedReq = decode64(dataBit);
 						System.out.println("unsigned_req="+unsignedReq);
 						if (!unsignedReq.contains("user_id"))  {
