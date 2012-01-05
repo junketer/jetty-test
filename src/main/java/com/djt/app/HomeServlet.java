@@ -49,6 +49,7 @@ public class HomeServlet extends GenericServlet {
 				String signedReq = req.getParameter("signed_request");
 				if (signedReq != null  && signedReq.length() >0) {
 					String unsignedReq = decode64(signedReq);
+					System.out.println("unsigned_req="+unsignedReq);
 					if (!unsignedReq.contains("user_id"))  {
 						String url = "http://www.facebook.com/dialog/oauth?client_id=154418354667612"+
 							"&redirect_uri=https://apps.facebook.com/djt-test/";
