@@ -1,0 +1,41 @@
+
+<HTML><HEAD><TITLE>Home</TITLE><style type="text/css">
+
+hr {color:sienna;}
+
+p {margin-left:20px;}
+div.results {height: 80px; scrolling:auto; }
+td.data {background-color: #CCFFCC;}
+
+</style>
+
+<script  type="text/javascript">
+function setPage() {var q = document.getElementsByName('query')[0].value;
+ document.getElementsByName('page').value='http;//search.twitter.com/search.atom?q='+q;}
+function callAjax(url) {
+alert(url);
+var xmlhttp; if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+ xmlhttp=new XMLHttpRequest(); } else {// code for IE6, IE5
+ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
+xmlhttp.open("GET",url,false);
+xmlhttp.send();
+alert(xmlhttp.responseText);
+document.getElementById("searchResults").innerHTML=xmlhttp.responseText;
+}
+function twitterQuery() {
+	alert('twitter query');
+	var q= document.getElementsByName('query')[0].value;
+	alert(q);
+	var url ='http://localhost:5000/twitter?query='+q;
+	alert(url);
+	callAjax(url);
+}
+
+</script>
+
+</HEAD><BODY><H2>Dan's Fabulous Heroku App</H2>
+<form action="http://localhost:5000/Home" method="post">Send Test FB request:
+<input name="signed_request" type="text" /><BR/>
+<input type="submit" value="Post"/>
+</form><div id="searchResults" class="results"></div></BODY></HTML>
