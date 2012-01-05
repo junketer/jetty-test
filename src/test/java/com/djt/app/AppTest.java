@@ -141,14 +141,18 @@ public class AppTest
 			"pOGdobTJXWkFUemlQb2ZPYktWNXBzMHFZWkM5bWY4WkNVWkFEQzFiNXZaQjV5cmtwWkFjUHBWa1ZYbGt"+
 			"Cc1Fqb1hyUzQzbzBsNkJ6YVFUV2FuWkJmcTE2QVpEWkQiLCJ1c2VyIjp7ImNvdW50cnkiOiJnYiIsImx"+
 			"vY2FsZSI6ImVuX0dCIiwiYWdlIjp7Im1pbiI6MjF9fSwidXNlcl9pZCI6IjYxODM0Mjk5NCJ9";
-
+		String hashBit = signed_request.substring(0,signed_request.indexOf("."));
+		String dataBit= signed_request.substring(signed_request.indexOf(".")+1);
 
 		System.out.println(signed_request+ " encoded: " + signed_request);
-		String decoded = new String(MyBase64.decode(signed_request));
+
+		System.out.println(" hashBit: " + hashBit);
+		System.out.println(" dataBit: " + dataBit);
+
+		String decoded = new String(MyBase64.decode(dataBit));
 		System.out.println(" decoded: " + decoded);
 		JSONObject jObj = new JSONObject(decoded);
 		System.out.println("user_id: " + jObj.get("user_id"));
 	}
-
 
 }
