@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -37,6 +39,12 @@ public class HomeServlet extends GenericServlet {
 	    @Override
 	    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
+				Enumeration names = req.getParameterNames();
+				while (names.hasMoreElements()) {
+					String s = names.nextElement().toString();
+					System.out.println(s + "="+req.getParameter(s));
+				}
 				doGet(req,resp);
 			}
 }
