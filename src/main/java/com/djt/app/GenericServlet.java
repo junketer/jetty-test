@@ -72,6 +72,6 @@ public abstract class GenericServlet extends HttpServlet {
 	}
 
 	protected String decode64(String encodedBytes) throws IOException {
-		return new String(Base64.decode(encodedBytes.getBytes()));
+		return new String(MyBase64.decode(encodedBytes));
 	}
 }
