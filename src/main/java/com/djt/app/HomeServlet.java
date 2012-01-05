@@ -48,23 +48,23 @@ public class HomeServlet extends GenericServlet {
 				}
 				String signedReq = req.getParameter("signed_request");
 				if (signedReq != null  && signedReq.length() >0) {
-					String hashBit = signedReq.substring(0,signedReq.indexOf("."));
-					String dataBit= signedReq.substring(signedReq.indexOf(".")+1);
-					System.out.println("dataBit="+dataBit);
-					String unsignedReq = decode64(dataBit);
-					System.out.println("unsigned_req="+unsignedReq);
-					if (!unsignedReq.contains("user_id"))  {
-						String url = "http://www.facebook.com/dialog/oauth?client_id=154418354667612"+
-							"&redirect_uri=https://apps.facebook.com/djt-test/";
-						try {
-							resp.sendRedirect(url);
-						} catch (Exception e) {
-							PrintWriter pw = resp.getWriter();
-							printHTMLStartTags(pw);
-							pw.print("<PRE>");
-							printError(e, pw);
-							printHTMLEndTags(pw);
+					try {
+						String hashBit = signedReq.substring(0,signedReq.indexOf("."));
+						String dataBit= signedReq.substring(signedReq.indexOf(".")+1);
+						System.out.println("dataBit="+dataBit);
+						String unsignedReq = decode64(dataBit);
+						System.out.println("unsigned_req="+unsignedReq);
+						if (!unsignedReq.contains("user_id"))  {
+							String url = "http://www.facebook.com/dialog/oauth?client_id=154418354667612"+
+								"&redirect_uri=https://apps.facebook.com/djt-test/";
+								resp.sendRedirect(url);
 						}
+					} catch (Throwable e) {
+						PrintWriter pw = resp.getWriter();
+						printHTMLStartTags(pw);
+						pw.print("<PRE>");
+						printError(e, pw);
+						printHTMLEndTags(pw);
 					}
 				}
 
