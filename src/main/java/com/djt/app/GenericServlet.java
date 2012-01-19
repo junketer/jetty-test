@@ -18,6 +18,8 @@ public abstract class GenericServlet extends HttpServlet {
 		pw.print("</TITLE>");
 		printCSS(pw);
 		printJavaScript(pw);
+		pw.print("<meta name=\"title\" content=\"Dan's Twitter Search App\" />");
+		pw.print("<meta name=\"description\" content=\"Simple Twitter search app. Enter a search string and it will list hits from Twitter's public stream\" />");
 		pw.print("</HEAD><BODY>");
 	}
 
@@ -48,7 +50,7 @@ public abstract class GenericServlet extends HttpServlet {
 		pw.println(" var q= document.getElementsByName('query')[0].value; ");
 		pw.println(" callAjax('./twitter?url='+url+'&query='+q);");
 		pw.println("}");
-		pw.println("</script>");
+		pw.println("</script><script type=\"text/javascript\" src=\"https://apis.google.com/js/plusone.js\"></script>");
 
 	}
 

@@ -24,7 +24,7 @@ public class HomeServlet extends GenericServlet {
 		PrintWriter pw = resp.getWriter();
 		try {
 			printHTMLStartTags(pw);
-			pw.print("<H2>Dan's Fabulous Heroku App</H2>");
+			pw.print("<H2>Dan's Fabulous Heroku App</H2><g:plusone></g:plusone>");
 			pw.print("<form action=\"/twitter\" method=\"post\">");
 			pw.print("Twitter search: <input name=\"query\" type=\"text\" onBlur=\"javascript:setPage()\" /><BR/>");
 			pw.print("<input type=\"hidden\" name=\"page\" />");
