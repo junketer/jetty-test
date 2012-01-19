@@ -25,7 +25,10 @@ public class HomeServlet extends GenericServlet {
 		try {
 			printHTMLStartTags(pw);
 			pw.print("<H2>Dan's Fabulous Heroku App</H2><g:plusone></g:plusone>");
-			pw.print("<form action=\"/twitter\" method=\"post\">");
+			pw.println("<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://djt-test.herokuapp.com\"");
+			pw.println("data-text=\"See my fab Twitter search app\" data-via=\"junketer\" data-hashtags=\"heroku\">Tweet</a>");
+			pw.println("<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"//platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>");
+			pw.print("<P/><form action=\"/twitter\" method=\"post\">");
 			pw.print("Twitter search: <input name=\"query\" type=\"text\" onBlur=\"javascript:setPage()\" /><BR/>");
 			pw.print("<input type=\"hidden\" name=\"page\" />");
 			pw.print("<input type=\"button\" value=\"Search\" onclick=\"javascript:twitterQuery();\" />");
