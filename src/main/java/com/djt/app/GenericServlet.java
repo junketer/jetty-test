@@ -61,7 +61,7 @@ public abstract class GenericServlet extends HttpServlet {
 		pw.println("td.data {background-color: #CCFFCC;}");
 //		pw.println("td.data {background-color: #CCFFCC;}");
 		pw.println("div.results {height: 80%;}");
-		pw.println("div.innerResults {height: 500px; overflow: auto;}");
+		pw.println("div.innerResults {height: 400px; overflow: auto;}");
 //		pw.println("body {background-image:url(\"images/back40.gif\");}");
 		pw.println("</style>");
 	}
