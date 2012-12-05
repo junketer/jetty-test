@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<TITLE>Home</TITLE>
+<style type="text/css">
+hr {
+	color: sienna;
+}
+
+p {
+	margin-left: 20px;
+}
+
+td.data {
+	background-color: #CCFFCC;
+}
+
+div.results {
+	height: 80%;
+}
+
+div.innerResults {
+	height: 400px;
+	overflow: auto;
+}
+
+body {
+	font-family: Arial
+}
+</style>
+<script language="JavaScript">
+	function setPage() {
+		var q = document.getElementsByName('query')[0].value;
+		document.getElementsByName('page')[0].value = 'http;//search.twitter.com/search.atom?q='
+				+ q;
+	}
+	function callAjax(url) {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari 
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5 
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open("GET", url, false);
+		xmlhttp.send();
+		document.getElementById("searchResults").innerHTML = xmlhttp.responseText;
+	}
+	function twitterQuery() {
+		var q = document.getElementsByName('query')[0].value;
+		callAjax('./twitter?query=' + q);
+	}
+	function nextPage(url) {
+		var q = document.getElementsByName('query')[0].value;
+		callAjax('./twitter?url=' + url + '&query=' + q);
+	}
+</script>
+<script type="text/javascript"
+	src="https://apis.google.com/js/plusone.js"></script>
+<meta name="title" content="Dan's Twitter Search App" />
+<meta name="description"
+	content="Simple Twitter search app. Enter a search string and it will list hits from Twitter's public stream" />
+</HEAD>
+<BODY>
+	<H2>Dan's Fabulous Heroku App</H2>
+	<g:plusone></g:plusone>
+	<a href="https://twitter.com/share" class="twitter-share-button"
+		data-url="http://djt-test.herokuapp.com"
+		data-text="See my fab Twitter search app" data-via="junketer"
+		data-hashtags="heroku">Tweet</a>
+	<script>
+		!function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (!d.getElementById(id)) {
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//platform.twitter.com/widgets.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}
+		}(document, "script", "twitter-wjs");
+	</script>
+	<P />
+	<form action="/twitter" method="post">
+		Twitter search: <input name="query" type="text"
+			onBlur="javascript:setPage()"
+			title="Enter a search string and click 'Search'" />&nbsp;<input
+			type="hidden" name="page" /><input type="button" value="Search"
+			onclick="javascript:twitterQuery();" />
+	</form>
+	<div id="searchResults" class="results" />
+</BODY>
+</HTML>
