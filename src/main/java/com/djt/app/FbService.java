@@ -19,6 +19,18 @@ public class FbService extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		process(req, resp);
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		process(req, resp);
+	}
+
+	private void process(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		String action = req.getRequestURI();
 		HttpSession session = req.getSession();
 		JSONObject jo = null;
@@ -50,7 +62,6 @@ public class FbService extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void writeJSONData(HttpServletResponse resp, JSONObject jo)
