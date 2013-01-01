@@ -155,4 +155,9 @@ public class AppTest
 		System.out.println("user_id: " + jObj.get("user_id"));
 	}
 
+	public void testTokenParse() {
+		String s = "access_token=AAACMcVMtQFwBAJ1lVsZATJ2yj1ojh9g6gC0DZArMG6gURhZBom1rvv6L2hjbddIMZBv3NLJGpCBFhKxujeQBHYuZBc6hITrpuPEcKieyZClAZDZD";
+		int i = s.indexOf("=");
+		System.out.println(s.substring(i+1));
+	}
 }

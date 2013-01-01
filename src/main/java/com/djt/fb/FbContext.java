@@ -62,7 +62,8 @@ public class FbContext {
 		String urlString = MessageFormat.format(OAUTH_URL, redirectUrl, code);
 		StringBuffer data = callFb(urlString);
 		int i = data.toString().indexOf("&");
-		authToken = data.toString().substring(0, i);
+		String authTokenTuple =data.toString().substring(0, i);
+		authToken = authTokenTuple.substring(authTokenTuple.indexOf("=")+1);
 		return authToken;
 	}
 
