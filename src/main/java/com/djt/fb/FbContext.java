@@ -1,7 +1,13 @@
 package com.djt.fb;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import org.w3c.dom.Document;
 
@@ -21,6 +27,10 @@ public class FbContext {
 	
 	private static final String LOGIN_REDIRECT_URL ="{0}";
 	
+	public static final String OAUTH_URL = "https://graph.facebook.com/oauth/access_token?client_id="+APP_ID+
+			"&redirect_uri={0}&client_secret="+APP_SECRET+"&code={1}";
+	
+	public static final String USER_URL = " https://graph.facebook.com/me?access_token={0}";
 	
 	private final String code;
 	private final String state;
@@ -47,9 +57,31 @@ public class FbContext {
 		return fbClient;
 	}
 	
-	public String getAuthToken() throws FacebookException, IOException {
-		authToken = getFBClient().auth_createToken();
+	public String getAuthToken(String redirectUrl) throws FacebookException, IOException {
+		assert (code !=null && code.length()>1);
+		String urlString = MessageFormat.format(OAUTH_URL, redirectUrl, code);
+		StringBuffer data = callFb(urlString);
+		int i = data.toString().indexOf("&");
+		authToken = data.toString().substring(0, i);
 		return authToken;
+	}
+
+
+	private StringBuffer callFb(String urlString) throws MalformedURLException,
+			IOException {
+		URL url = new URL(urlString);
+		URLConnection con = url.openConnection();
+		con.connect();
+		InputStream is = null;
+		is = con.getInputStream();
+		int read = 0;
+		StringBuffer data = new StringBuffer();
+		byte[] b = new byte[128];
+		while ((read = is.read(b))>0) {
+			data.append(new String(b, 0, read));
+		}
+		is.close();
+		return data;
 	}
 	
 	public String getCode() {
@@ -63,13 +95,10 @@ public class FbContext {
 	
 	public String getUserName() throws FacebookException, IOException {
 		assert authToken !=null;
-		ArrayList<Long> userids = new ArrayList<Long>(1);
-		ArrayList<ProfileField> fields = new ArrayList<ProfileField>(1);
-		fields.add(ProfileField.FIRST_NAME);
-		userids.add(fbClient.users_getLoggedInUser());
-		Document d = fbClient.users_getStandardInfo(userids, fields);
-		System.out.println(d);
-		return "Dan";
+		String url = MessageFormat.format(USER_URL, authToken);
+		StringBuffer data = callFb(url);
+		System.out.println("user data: " + data);
+		return data.toString();
 		
 	}
 }

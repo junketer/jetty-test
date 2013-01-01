@@ -48,7 +48,7 @@ public class FbLoginServlet extends HttpServlet {
 					FbContext fbContext = new FbContext(code, reqState);
 					req.getSession().setAttribute("fbContext", fbContext);
 					try {
-						fbContext.getAuthToken();
+						System.out.println(" auth token: " + fbContext.getAuthToken(req.getRequestURI()));
 						fbContext.getUserName();
 					} catch (FacebookException e) {
 						// TODO Auto-generated catch block
