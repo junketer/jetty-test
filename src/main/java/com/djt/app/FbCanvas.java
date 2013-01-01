@@ -13,13 +13,14 @@ public class FbCanvas extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		req.getRequestDispatcher("index.html").forward(req, resp);
+		resp.sendRedirect("index.html");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		doGet(req, resp);
+		
+		resp.sendRedirect("index.html");
 	}
 
 }
