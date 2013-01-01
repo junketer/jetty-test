@@ -19,6 +19,7 @@ public class App
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         context.addServlet(new ServletHolder(new FbCanvas()),"/");
+        context.addServlet(new ServletHolder(new FbLoginServlet()),"/fbLogin");
         context.addServlet(new ServletHolder(new HomeServlet()),"/search/*");
         context.addServlet(new ServletHolder(new TwitterFeedServlet()),"/twitter/*");
         ResourceHandler resource_handler = new ResourceHandler();

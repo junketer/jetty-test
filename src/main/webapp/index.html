@@ -53,6 +53,10 @@ body {
 		var q = document.getElementsByName('query')[0].value;
 		callAjax('./twitter?url=' + url + '&query=' + q);
 	}
+	
+	function fbLogin() {
+		callAjax("/fbLogin");
+	}
 </script>
 <script type="text/javascript"
 	src="https://apis.google.com/js/plusone.js"></script>
@@ -66,7 +70,8 @@ body {
 	<a href="https://twitter.com/share" class="twitter-share-button"
 		data-url="http://djt-test.herokuapp.com"
 		data-text="See my fab Twitter search app" data-via="junketer"
-		data-hashtags="heroku">Tweet</a>
+		data-hashtags="heroku">Tweet</a> &nbsp;
+	<a href="/fbLogin">Login with Facebook</a>
 	<script>
 		!function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
