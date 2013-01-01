@@ -18,6 +18,7 @@ public class App
         Server server = new Server(Integer.valueOf(System.getenv("PORT")));
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
+        context.addServlet(new ServletHolder(new FbCanvas()),"/*");
         context.addServlet(new ServletHolder(new HomeServlet()),"/search/*");
         context.addServlet(new ServletHolder(new TwitterFeedServlet()),"/twitter/*");
         ResourceHandler resource_handler = new ResourceHandler();
