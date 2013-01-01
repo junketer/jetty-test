@@ -49,7 +49,7 @@ public class FbLoginServlet extends HttpServlet {
 					req.getSession().setAttribute("fbContext", fbContext);
 					System.out.println(" auth token: " + fbContext.getAuthToken(req.getRequestURL().toString()));
 					fbContext.getUserName();
-					
+					resp.sendRedirect("/index.html");
 				} else {
 					// Being hacked... ? Set forbidden header
 					resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
