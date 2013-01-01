@@ -9,6 +9,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 
 import com.facebook.api.FacebookException;
@@ -38,6 +40,8 @@ public class FbContext {
 	
 	private FacebookXmlRestClient fbClient = null;
 	
+	private JSONObject userInfo = null;
+	
 	public static final String LOGIN_DIALOG_URL = "https://www.facebook.com/dialog/oauth?client_id="+APP_ID+
 			"&redirect_uri="+LOGIN_REDIRECT_URL+"&scope=publish_actions&state=";
 	
@@ -57,7 +61,7 @@ public class FbContext {
 		return fbClient;
 	}
 	
-	public String getAuthToken(String redirectUrl) throws FacebookException, IOException {
+	public String getAuthToken(String redirectUrl) throws IOException {
 		assert (code !=null && code.length()>1);
 		String urlString = MessageFormat.format(OAUTH_URL, redirectUrl, code);
 		StringBuffer data = callFb(urlString);
@@ -94,12 +98,43 @@ public class FbContext {
 		return state;
 	}
 	
-	public String getUserName() throws FacebookException, IOException {
+	public String getUserName() throws IOException {
 		assert authToken !=null;
+		if (userInfo==null) {
+			lookupUserInfo();
+		} else {
+			if (userInfo!=null) {// double check that we got the data
+				try {
+					return userInfo.getString("name");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return "User not logged in";
+		
+	}
+
+	public JSONObject getUserJson() throws IOException {
+		assert authToken !=null;
+		if (userInfo==null) {
+			return lookupUserInfo();
+		}		
+		return null;
+	}
+
+	private JSONObject lookupUserInfo() throws IOException {
 		String url = MessageFormat.format(USER_URL, authToken);
 		StringBuffer data = callFb(url);
 		System.out.println("user data: " + data);
-		return data.toString();
-		
+		try {
+			userInfo = new JSONObject(data.toString());
+			return userInfo;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

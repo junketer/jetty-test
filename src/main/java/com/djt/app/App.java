@@ -20,6 +20,8 @@ public class App
         context.setContextPath("/");
         context.addServlet(new ServletHolder(new FbCanvas()),"/");
         context.addServlet(new ServletHolder(new FbLoginServlet()),"/fbLogin");
+        context.addServlet(new ServletHolder(new FbService()),"/fbService/*");
+        
         context.addServlet(new ServletHolder(new HomeServlet()),"/search/*");
         context.addServlet(new ServletHolder(new TwitterFeedServlet()),"/twitter/*");
         ResourceHandler resource_handler = new ResourceHandler();

@@ -47,13 +47,9 @@ public class FbLoginServlet extends HttpServlet {
 				if (reqState != null && reqState.equals(sessionState)) {
 					FbContext fbContext = new FbContext(code, reqState);
 					req.getSession().setAttribute("fbContext", fbContext);
-					try {
-						System.out.println(" auth token: " + fbContext.getAuthToken(req.getRequestURL().toString()));
-						fbContext.getUserName();
-					} catch (FacebookException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					System.out.println(" auth token: " + fbContext.getAuthToken(req.getRequestURL().toString()));
+					fbContext.getUserName();
+					
 				} else {
 					// Being hacked... ? Set forbidden header
 					resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
