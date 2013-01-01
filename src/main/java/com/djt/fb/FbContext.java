@@ -119,9 +119,9 @@ public class FbContext {
 	public JSONObject getUserJson() throws IOException {
 		assert authToken !=null;
 		if (userInfo==null) {
-			return lookupUserInfo();
+			lookupUserInfo();
 		}		
-		return null;
+		return userInfo;
 	}
 
 	private JSONObject lookupUserInfo() throws IOException {
@@ -130,11 +130,10 @@ public class FbContext {
 		System.out.println("user data: " + data);
 		try {
 			userInfo = new JSONObject(data.toString());
-			return userInfo;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return userInfo;
 	}
 }

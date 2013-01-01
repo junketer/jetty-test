@@ -33,6 +33,7 @@ public class FbService extends HttpServlet {
 				}
 
 				if (jo == null) {
+					System.out.println("defaulting jo var");
 					jo = new JSONObject();
 					jo.put("name", "User not logged in");
 				}
