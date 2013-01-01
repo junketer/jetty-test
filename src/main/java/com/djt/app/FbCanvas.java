@@ -12,8 +12,6 @@ public class FbCanvas extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doGet(req, resp);
 		
 		req.getRequestDispatcher("index.html").forward(req, resp);
 	}
@@ -21,8 +19,6 @@ public class FbCanvas extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
 		doGet(req, resp);
 	}
 
