@@ -22,11 +22,13 @@ public class FbService extends HttpServlet {
 		String action = req.getRequestURI();
 		HttpSession session = req.getSession();
 		JSONObject jo = null;
+		System.out.println("Action: " + action);
 		try {
 			if (session != null && session.getAttribute("fbContext") != null) {
 				FbContext ctx = (FbContext) session.getAttribute("fbContext");
 
-				if (action.equalsIgnoreCase("user")) {
+				if (action.endsWith("user")) {
+					System.out.println(" getting user info...");
 					jo = ctx.getUserJson();
 				}
 
@@ -37,6 +39,7 @@ public class FbService extends HttpServlet {
 
 			} else {
 				// data not available.
+				System.out.println(" session or fbContext not set...");
 				jo = new JSONObject();
 				jo.put("name", "User not logged in");
 			}
