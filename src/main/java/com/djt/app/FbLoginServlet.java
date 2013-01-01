@@ -31,6 +31,11 @@ public class FbLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+		process(req, resp);		
+	}
+
+	private void process(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		String code = req.getParameter("code");
 		String sessionState = getStateValue(req);
 		String reqState = req.getParameter("state");
@@ -55,15 +60,13 @@ public class FbLoginServlet extends HttpServlet {
 				}
 			
 	
-			}		
+			}
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		String url = MessageFormat.format(FbContext.LOGIN_DIALOG_URL, req.getRequestURL());
-		resp.sendRedirect(url+createStateString(req));
+		process(req, resp);
 	}
 
 	private String getStateValue(HttpServletRequest req) {
