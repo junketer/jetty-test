@@ -27,6 +27,13 @@ div.innerResults {
 body {
 	font-family: Arial
 }
+
+#username {
+	font-family: Arial;
+	font-size: 12px;
+	vertical-align: center;
+	display: inline;
+}
 </style>
 <script language="JavaScript">
 	function setPage() {
@@ -76,8 +83,6 @@ body {
 		document.getElementById("username").innerHTML=obj.name;
 	}
 	
-	// call for the user name
-	fbUserName();
 </script>
 <script type="text/javascript"
 	src="https://apis.google.com/js/plusone.js"></script>
@@ -92,7 +97,7 @@ body {
 		data-url="http://djt-test.herokuapp.com"
 		data-text="See my fab Twitter search app" data-via="junketer"
 		data-hashtags="heroku">Tweet</a> &nbsp;
-	<a href="/fbLogin"><span id="username"></span><img src="images/facebook.png" title="Login with Facebook"/></a>
+	<a href="/fbLogin"><img src="images/facebook.png" title="Login with Facebook"/></a>&nbsp;<div id="username"></div>
 	<script>
 		!function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
@@ -114,4 +119,9 @@ body {
 	</form>
 	<div id="searchResults" class="results" />
 </BODY>
+<script type="text/javascript">
+	// call for the user name
+	fbUserName();
+</script>
+
 </HTML>
