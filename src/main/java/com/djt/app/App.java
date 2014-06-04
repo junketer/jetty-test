@@ -24,6 +24,8 @@ public class App
         
         context.addServlet(new ServletHolder(new HomeServlet()),"/search/*");
         context.addServlet(new ServletHolder(new TwitterFeedServlet()),"/twitter/*");
+        context.addServlet(new ServletHolder(new OAGService()),"/oagService/*");
+        
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(false);
         resource_handler.setWelcomeFiles(new String[]{ "index.html" });
