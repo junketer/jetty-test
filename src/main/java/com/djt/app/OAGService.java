@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jetty.server.Response;
-
 public class OAGService extends HttpServlet {
 
 	private HashMap<String,ArrayBlockingQueue<String>> serviceMap = new HashMap<String,ArrayBlockingQueue<String>>(5);
@@ -27,9 +25,6 @@ public class OAGService extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String[] parts = req.getPathInfo().substring(1).split("/");
-		int index = -1;
-		boolean isDataRequest=false;
-		boolean isListRequest = false;
 		String service = null;
 		if (parts.length>0) {
 			service = parts[0];
@@ -121,7 +116,7 @@ public class OAGService extends HttpServlet {
 		if (serviceMap.containsKey(key)) {
 			return serviceMap.get(key);
 		} else {
-			ArrayBlockingQueue<String> q = new ArrayBlockingQueue<String>(5);
+			ArrayBlockingQueue<String> q = new ArrayBlockingQueue<String>(500);
 			serviceMap.put(key, q);
 			return q;
 		}
