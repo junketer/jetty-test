@@ -33,6 +33,8 @@ public class OAGService extends HttpServlet {
 		if (serviceMap.containsKey(service)) {		
 			// need to obtain the data
 			ArrayBlockingQueue<String> q = getQueue(service);
+			resp.getWriter().write("q size: " + q.size());
+			resp.getWriter().write("\n");
 			if (q.peek()!=null) {
 				try {
 					resp.getWriter().write(q.take());
@@ -53,9 +55,10 @@ public class OAGService extends HttpServlet {
 		//super.doPost(req, resp);
 		
 		String key = readKey(req);
-		System.out.println("POST for key: " + key);
 		InputStream is = req.getInputStream();
-		put(key,read(is));
+		String data = read(is);
+		System.out.println("POST for key: " + key +" payload len: " + data.length());
+		put(key,data);
 		
 	}
 	
