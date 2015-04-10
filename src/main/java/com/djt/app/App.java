@@ -10,7 +10,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 /**
  * App class to set up the Jetty servlets / contexts
- *
+ * @version %I%, %G%
  */
 public class App
 {
