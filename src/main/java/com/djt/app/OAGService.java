@@ -24,7 +24,15 @@ public class OAGService extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		String[] parts = req.getPathInfo().substring(1).split("/");
+	        String[] parts = new String[0]; 
+                String pathInfo = req.getPathInfo();
+	        if (pathInfo!=null) {
+	            pathInfo=pathInfo.substring(1);
+	            if (pathInfo !=null) {
+	                    parts = req.getPathInfo().substring(1).split("/");	                
+	            }
+	        }
+	                
 		String service = null;
 		if (parts.length>0) {
 			service = parts[0];
